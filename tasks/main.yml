@@ -3,13 +3,6 @@
 - name: Vector | install
   include_tasks: "{{ ansible_pkg_mgr }}/install.yml"
 
-- name: Vector | create config
-  become: yes
-  ansible.builtin.template:
-    src: vector.yml.j2
-    dest: /etc/vector/vector.yml
-    mode: "0750"
-
 - name: Vector | create service
   become: yes
   ansible.builtin.template:
