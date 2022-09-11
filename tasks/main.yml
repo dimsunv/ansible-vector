@@ -24,4 +24,3 @@
   ansible.builtin.service:
     name: vector
     state: started
-    enabled: yes
