@@ -1,0 +1,4 @@
+---
+# defaults file for ansible-vector
+vector_version: "0.23.3"
+vector_gpg_key: "https://repositories.timber.io/public/vector/gpg.3543DB2D0A2BC4B8.key"

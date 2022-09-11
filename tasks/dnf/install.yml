@@ -1,0 +1,19 @@
+---
+- name: Vector | Add repository
+  become: yes
+  ansible.builtin.yum_repository:
+    name: timber-vector
+    description: timber-vector
+    async: no
+    baseurl: https://repositories.timber.io/public/vector/rpm/el/$releasever/$basearch
+    gpgkey: https://repositories.timber.io/public/vector/gpg.3543DB2D0A2BC4B8.key
+    gpgcheck: yes
+    enabled: yes
+    file: timber-vector
+
+- name: Vector | Install package
+  become: yes
+  ansible.builtin.dnf:
+    name:
+      - vector = {{ vector_version }}
+    state: present
