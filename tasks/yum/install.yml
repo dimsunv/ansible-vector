@@ -1,6 +1,5 @@
 ---
 - name: Vector | Add repository
-  become: yes
   ansible.builtin.yum_repository:
     name: timber-vector
     description: timber-vector
@@ -12,7 +11,6 @@
     file: timber-vector
 
 - name: Vector | Install package
-  become: yes
   ansible.builtin.yum:
     name:
       - vector = {{ vector_version }}

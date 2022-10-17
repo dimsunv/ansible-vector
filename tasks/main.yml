@@ -1,19 +1,13 @@
 ---
 # tasks file for ansible-vector
 - name: Vector | install
-  include_tasks: "{{ ansible_pkg_mgr }}/install.yml"
+  ansible.builtin.include_tasks: "{{ ansible_pkg_mgr }}/install.yml"
 
 - name: Vector | create service
-  become: yes
   ansible.builtin.template:
     src: vector.service.j2
     dest: /etc/systemd/system/vector.service
     mode: "0644"
     owner: "root"
     group: "root"
-
-- name: Vector | start service
-  become: yes
-  ansible.builtin.service:
-    name: vector
-    state: started
+  notify: (Handler) Run Vector

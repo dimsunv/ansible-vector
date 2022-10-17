@@ -1,19 +1,16 @@
 ---
 - name: Vector | Add key
-  become: yes
   ansible.builtin.apt_key:
     url: "{{ vector_gpg_key }}"
     state: present
 
 - name: Vector | Add repository
-  become: yes
   ansible.builtin.apt_repository:
-    repo: deb https://repositories.timber.io/public/vector/deb/{{ansible_facts.distribution|lower}}/ {{ansible_facts.distribution_release|lower}} main
+    repo: deb https://repositories.timber.io/public/vector/deb/{{ ansible_facts.distribution | lower }}/ {{ ansible_facts.distribution_release | lower }} main
     state: present
     filename: timber-vector
 
 - name: Vector | Install package
-  become: yes
   ansible.builtin.apt:
     name:
       - vector={{ vector_version }}-1
