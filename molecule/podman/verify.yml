@@ -1,0 +1,32 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check if Vector is installed
+      ansible.builtin.package:
+        name: vector
+        state: present
+      check_mode: true
+      register: install
+      failed_when: (install is changed) or (install is failed)
+
+    # - name: Check if vector service is running
+    #   ansible.builtin.service:
+    #     name: vector
+    #     state: started
+    #   check_mode: true
+    #   register: service
+    #   changed_when: False
+    #   failed_when: (service is changed) or (service is failed)
+    # - name: Check if vector service is running
+    #   ansible.builtin.service_facts:
+    #
+    # - name: Print service facts
+    #   ansible.builtin.debug:
+    #     var: ansible_facts.services
+    # - name: debug
+    #   debug:
+    #     msg: "{{install}}"
+    #     msg: "{{service}}"

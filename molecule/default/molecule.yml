@@ -2,34 +2,10 @@
 dependency:
   name: galaxy
 driver:
-  name: podman
-lint: |
-  yamllint .
-  ansible-lint .
+  name: delegated
 platforms:
-  - name: centos-stream-8
-    image: quay.io/centos/centos:stream8
-    pre_build_image: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    command: "/sbin/init"
-  - name: ubuntu-jammy
-    image: boliwar/ubuntu:jammy
-    pre_build_image: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    command: "/sbin/init"
-  - name: debian-bullseye
-    image: boliwar/debian:bullseye
-    pre_build_image: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    command: "/sbin/init"
+  - name: instance
 provisioner:
   name: ansible
-  playbooks:
-    converge: converge.yml
-    verify: verify.yml
+verifier:
+  name: ansible
