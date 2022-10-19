@@ -12,21 +12,17 @@
       register: install
       failed_when: (install is changed) or (install is failed)
 
-    # - name: Check if vector service is running
-    #   ansible.builtin.service:
-    #     name: vector
-    #     state: started
-    #   check_mode: true
-    #   register: service
-    #   changed_when: False
-    #   failed_when: (service is changed) or (service is failed)
-    # - name: Check if vector service is running
-    #   ansible.builtin.service_facts:
-    #
-    # - name: Print service facts
-    #   ansible.builtin.debug:
-    #     var: ansible_facts.services
-    # - name: debug
-    #   debug:
-    #     msg: "{{install}}"
-    #     msg: "{{service}}"
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Print the package facts
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts.packages.vector[0].version }}"
+
+    - name: Check if vector service is running
+      ansible.builtin.service_facts:
+
+    - name: Print service facts
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts.services['vector.service'].state }}"
