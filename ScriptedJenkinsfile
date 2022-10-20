@@ -1,0 +1,22 @@
+node("jenkins-agent-1"){
+    stage("Git checkout"){
+        git branch: 'new-pipe', credentialsId: '708a2ed9-77fb-4669-8244-4a414b5bb9f5', url: 'git@github.com:dimsunv/example-playbook.git'
+    }
+    stage("Sample define secret_check"){
+        secret_check=true
+    }
+    stage("Run playbook"){
+        if (secret_check){
+            if (env.PROD_RUN == true){
+                sh 'ansible-playbook -i inventory/prod.yml site.yml'
+            }
+            else{
+                sh 'ansible-playbook -i inventory/prod.yml site.yml --check --diff'
+            }
+        }
+        else{
+            echo 'need more action'
+        }
+
+    }
+}
